@@ -3,14 +3,20 @@ import express from "express";
 import Swal from 'sweetalert2'
 import cors from 'cors'
 
+
 const app = express();
 const port = 3000;
 app.use(cors());
 
 app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self' 'unsafe-inline'");
+    res.setHeader(
+        'Content-Security-Policy',
+        "default-src 'self'; style-src 'self' https://cdn.jsdelivr.net; script-src 'self' https://cdn.jsdelivr.net"
+    );
     next();
 });
+
+app.use(express.static('public'));
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
