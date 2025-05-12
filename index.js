@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('views', './views');
 
 var list = [];
 
