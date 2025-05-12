@@ -48,8 +48,6 @@ app.get("/", (req, res) => {
     const isEmpty = list.length == 0;
 
 
-
-
     res.render("index.ejs", {
         "task": list,
         "isEmpty": isEmpty,
