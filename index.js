@@ -2,19 +2,36 @@ import bodyParser from "body-parser";
 import express from "express";
 import Swal from 'sweetalert2'
 import cors from 'cors'
+import helmet from "helmet";
 
 
 const app = express();
 const port = 3000;
 app.use(cors());
 
-app.use((req, res, next) => {
-    res.setHeader(
-        'Content-Security-Policy',
-        "default-src 'self'; style-src 'self' https://cdn.jsdelivr.net; script-src 'self' https://cdn.jsdelivr.net"
-    );
-    next();
-});
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'", // if using inline styles or Bootstrap components
+                "https://cdn.jsdelivr.net",
+                "https://cdnjs.cloudflare.com"
+            ],
+            scriptSrc: [
+                "'self'",
+                "https://cdn.jsdelivr.net",
+                "https://cdnjs.cloudflare.com"
+            ],
+            fontSrc: [
+                "'self'",
+                "https://cdn.jsdelivr.net",
+                "https://cdnjs.cloudflare.com"
+            ],
+        },
+    })
+);
 
 app.use(express.static('public'));
 
