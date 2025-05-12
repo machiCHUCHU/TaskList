@@ -5,7 +5,13 @@ import cors from 'cors'
 
 const app = express();
 const port = 3000;
-app.use(cors())
+app.use(cors());
+
+app.use((req, res, next) => {
+    res.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self' 'unsafe-inline'");
+    next();
+});
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', './views');
